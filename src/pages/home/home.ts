@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {ActivityPage} from '../activity/activity';
 import {NewactivityPage}from '../newactivity/newactivity';
+import { removeArrayItem } from 'ionic-angular/umd/util/util';
 
 @Component({
   selector: 'page-home',
@@ -41,6 +42,18 @@ ionViewDidEnter(){
   this.storage.get('todoDetails').then((val)=>{
     this.addedToDoList = val;
   });
+}
+
+goToAddTodo():void{
+  this.navCtrl.push(NewactivityPage);
+}
+
+removeArrayItem(todo):void{
+  let index = this.addedToDoList.indexOf(todo);
+  if(index>-1){
+    this.addedToDoList.splice(index,1);
+    this.storage.set('todoDetails',this.addedToDoList);
+  }
 }
 
 
